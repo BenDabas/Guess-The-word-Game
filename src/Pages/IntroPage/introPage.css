@@ -1,0 +1,15 @@
+.intro-page-wrapper {
+  background-image: url('../../assets/images/intro-page-image.png');
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-top: -22px;
+}
+
+.intro-page-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 45px;
+}

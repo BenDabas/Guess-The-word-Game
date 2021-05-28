@@ -1,0 +1,9 @@
+.score-table-page-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.score-table {
+  text-align-last: center;
+}

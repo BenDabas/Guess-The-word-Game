@@ -1,0 +1,22 @@
+.game-play-wrapper {
+  background-image: url('../../assets/images/words2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-wrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: dimgrey;
+  border-radius: 34%;
+  opacity: 0.8;
+}
+.countdown {
+  font-size: 40px;
+  margin: 16px 0px 0px 35px;
+}
