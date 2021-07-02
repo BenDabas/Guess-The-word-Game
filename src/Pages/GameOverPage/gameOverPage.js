@@ -13,10 +13,17 @@ const GameOverPage = () => {
 
   const [userName, setUserName] = useState('');
   const [userPhone, setUserPhone] = useState('');
+  const [isValid, setIsValid] = useState(true); 
 
   const handleGameOverButton = () => {
-    store.dispatch(addUserDetailsAction(userName, userPhone));
-    history.push('/');
+    setIsValid(true);
+    if(userName.length > 1 && userPhone !== '') { // Validation for userPhone and userName.
+      store.dispatch(addUserDetailsAction(userName, userPhone));
+      history.push('/');
+    } else {
+      setIsValid(false);
+    }
+
   };
 
   const handleUserName = ({ target }) => {
@@ -30,6 +37,7 @@ const GameOverPage = () => {
 
   return (
     <div className="game-over-wrapper">
+      {!isValid ? <h5 style={{color: 'red'}}>Name must be at list 2 chars and phone number is required ! </h5>: ''}
       <div className="game-over-inputs">
         <Input placeholderText="Your name" handleUserInput={handleUserName} />
         <Input placeholderText="Your phone" handleUserInput={handleUserPhone} />

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import Countdown from 'react-countdown';
-// import words from "word-list-json";
 import randomWords from 'random-words';
 
 import Button from '../../Components/Button';
@@ -27,6 +26,8 @@ const GamePlayPage = () => {
   const [userInput, setUserInput] = useState('');
   const [level, setLevel] = useState(0);
   const [isLose, setIsLose] = useState(false);
+
+  const startDate = React.useRef(Date.now());
 
   const history = useHistory();
   const state = useSelector((state) => state);
@@ -72,6 +73,7 @@ const GamePlayPage = () => {
    */
   const handleCheckButton = () => {
     if (userInput === randomWord) {
+      startDate.current  = Date.now();
       store.dispatch(levelRiseAction);
       store.dispatch(scoreUpdateAction(10));
       setLevel(level + 1);
@@ -111,6 +113,7 @@ const GamePlayPage = () => {
   const onCompleteCountDown = () => {
     setIsLose(true);
   };
+
   return (
     <div className="game-play-wrapper">
       {!isLose ? (
@@ -118,13 +121,14 @@ const GamePlayPage = () => {
           <div className="countdown-wrapper">
             <h1>countdown: </h1>
             <div className="countdown">
-              <Countdown
-                style={{ fontSize: '40px' }}
-                onComplete={onCompleteCountDown}
-                date={Date.now() + 30000}
-                intervalDelay={0}
-                precision={3}
-                renderer={(props) => <div>{props.total}</div>}
+            <Countdown
+              style={{ fontSize: '40px' }}
+              onComplete={onCompleteCountDown}
+              date={startDate.current + 30000}
+              autoStart={true}
+              intervalDelay={0}
+              precision={3}
+              renderer={(props) => <div>{props.total}</div>}
               ></Countdown>
             </div>
           </div>
