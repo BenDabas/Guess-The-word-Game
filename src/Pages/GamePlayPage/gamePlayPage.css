@@ -15,8 +15,14 @@
   background-color: dimgrey;
   border-radius: 34%;
   opacity: 0.8;
+  padding: 0px 30px;
 }
 .countdown {
   font-size: 40px;
   margin: 16px 0px 0px 35px;
+}
+
+.game-play-page-subs-headers {
+  font-family: Georgia, sans-serif;
+  font-size: 18px;
 }

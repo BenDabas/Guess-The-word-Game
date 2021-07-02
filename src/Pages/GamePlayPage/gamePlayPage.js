@@ -72,10 +72,10 @@ const GamePlayPage = () => {
    * @description Checking if the user's suggest is correct. If correct raise level and difficult else decrease user's life.
    */
   const handleCheckButton = () => {
-    if (userInput === randomWord) {
+    if (userInput === randomWord) { // Checking user's guess.
       startDate.current  = Date.now();
-      store.dispatch(levelRiseAction);
-      store.dispatch(scoreUpdateAction(10));
+      store.dispatch(levelRiseAction); // Updating user's level.
+      store.dispatch(scoreUpdateAction(10)); // Updating user's score.
       setLevel(level + 1);
       GetRandomWord(level + 1);
       setUserInput('');
@@ -132,7 +132,10 @@ const GamePlayPage = () => {
               ></Countdown>
             </div>
           </div>
+          <div className='game-play-page-subs-headers' >
+          <h1 style={{marginRight: '50px'}}>Remaining guesses: {life}</h1>
           <h1>Your level: {level + 1}</h1>
+          </div>
           <h1>Word: </h1>
 
           <h2>{missingLettersWord}</h2>
