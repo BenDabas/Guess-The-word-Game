@@ -26,6 +26,7 @@ const GamePlayPage = () => {
   const [userInput, setUserInput] = useState('');
   const [level, setLevel] = useState(0);
   const [isLose, setIsLose] = useState(false);
+  const [wrongAnswer, setWrongAnswer] = useState(false);
 
   const startDate = React.useRef(Date.now());
 
@@ -72,14 +73,17 @@ const GamePlayPage = () => {
    * @description Checking if the user's suggest is correct. If correct raise level and difficult else decrease user's life.
    */
   const handleCheckButton = () => {
-    if (userInput === randomWord) { // Checking user's guess.
-      startDate.current  = Date.now();
+    setWrongAnswer(false);
+    if (userInput === randomWord) {
+      // Checking user's guess.
+      startDate.current = Date.now();
       store.dispatch(levelRiseAction); // Updating user's level.
       store.dispatch(scoreUpdateAction(10)); // Updating user's score.
       setLevel(level + 1);
       GetRandomWord(level + 1);
       setUserInput('');
     } else {
+      setWrongAnswer(true);
       if (life === 1) {
         console.log('loose');
         setIsLose(true);
@@ -121,20 +125,20 @@ const GamePlayPage = () => {
           <div className="countdown-wrapper">
             <h1>countdown: </h1>
             <div className="countdown">
-            <Countdown
-              style={{ fontSize: '40px' }}
-              onComplete={onCompleteCountDown}
-              date={startDate.current + 30000}
-              autoStart={true}
-              intervalDelay={0}
-              precision={3}
-              renderer={(props) => <div>{props.total}</div>}
+              <Countdown
+                style={{ fontSize: '40px' }}
+                onComplete={onCompleteCountDown}
+                date={startDate.current + 30000}
+                autoStart={true}
+                intervalDelay={0}
+                precision={3}
+                renderer={(props) => <div>{props.total}</div>}
               ></Countdown>
             </div>
           </div>
-          <div className='game-play-page-subs-headers' >
-          <h1 style={{marginRight: '50px'}}>Remaining guesses: {life}</h1>
-          <h1>Your level: {level + 1}</h1>
+          <div className="game-play-page-subs-headers">
+            <h1 style={{ marginRight: '50px' }}>Remaining guesses: {life}</h1>
+            <h1>Your level: {level + 1}</h1>
           </div>
           <h1>Word: </h1>
 
@@ -143,6 +147,11 @@ const GamePlayPage = () => {
           <div className="game-play-input">
             <Input userInput={userInput} handleUserInput={HandleInput} />
           </div>
+          {wrongAnswer ? (
+            <h4 style={{ color: 'red' }}> Wrong guess! try something else! </h4>
+          ) : (
+            ''
+          )}
           <Button
             handleButton={handleCheckButton}
             text="Check the guess !"
